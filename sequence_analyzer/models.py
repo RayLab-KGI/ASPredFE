@@ -30,7 +30,7 @@ class SequenceSubmission(models.Model):
         max_length=130,
         validators=[
             RegexValidator(
-                regex='^[ACDEFGHIKLMNPQRSTVWY]+$',
+                regex='^[acdefghiklmnpqrstvwxyACDEFGHIKLMNPQRSTVWY]+$',
                 message='Sequence must contain only valid amino acid letters (ACDEFGHIKLMNPQRSTVWY)',
                 code='invalid_sequence'
             ),
