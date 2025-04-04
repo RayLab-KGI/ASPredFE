@@ -1,0 +1,36 @@
+{% extends 'sequence_analyzer/base.html' %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="display-4 mb-4">Welcome to Laboratory Sequence Analyzer</h1>
+    <p class="lead mb-4">A powerful tool for analyzing amino acid sequences</p>
+    
+    {% if not user.is_authenticated %}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Get Started</h5>
+                        <p class="card-text">Register now to submit and analyze your amino acid sequences.</p>
+                        <a href="{% url 'register' %}" class="btn btn-primary me-2">Register</a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Welcome back, {{ user.username }}!</h5>
+                        <p class="card-text">What would you like to do?</p>
+                        <a href="{% url 'submit_sequence' %}" class="btn btn-primary me-2">Submit Sequence</a>
+                        <a href="{% url 'view_submissions' %}" class="btn btn-outline-primary">View Submissions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

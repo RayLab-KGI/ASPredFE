@@ -1,0 +1,58 @@
+{% extends 'sequence_analyzer/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title mb-4">Your Submissions</h2>
+        {% if submissions %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Sequence</th>
+                            <th>Status</th>
+                            <th>Result</th>
+                            <th>Submitted</th>
+                            <th>Result Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for submission in submissions %}
+                            <tr>
+                                <td>{{ submission.sequence }}</td>
+                                <td>
+                                    {% if submission.status == 'pending' %}
+                                        <span class="badge bg-warning">Pending</span>
+                                    {% else %}
+                                        <span class="badge bg-success">Done</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if submission.status == 'pending' %}
+                                        -
+                                    {% else %}
+                                        {{ submission.result|floatformat:3 }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ submission.submit_date|date:"Y-m-d H:i" }}</td>
+                                <td>
+                                    {% if submission.result_date %}
+                                        {{ submission.result_date|date:"Y-m-d H:i" }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                You haven't submitted any sequences yet.
+                <a href="{% url 'submit_sequence' %}" class="alert-link">Submit your first sequence</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

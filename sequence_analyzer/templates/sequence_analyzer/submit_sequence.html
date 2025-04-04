@@ -1,0 +1,28 @@
+{% extends 'sequence_analyzer/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Submit Sequence</h2>
+                <div class="alert alert-info">
+                    <h5 class="alert-heading">Guidelines:</h5>
+                    <ul class="mb-0">
+                        <li>Sequence must contain only valid amino acid letters (ACDEFGHIKLMNPQRSTVWY)</li>
+                        <li>Maximum sequence length is 130 amino acids</li>
+                        <li>You can submit only one sequence per day</li>
+                    </ul>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary">Submit Sequence</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
