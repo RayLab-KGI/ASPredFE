@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="text-center">
-    <h1 class="display-4 mb-4">Welcome to ASPRED</h1>
+    <h1 class="display-4 mb-4">Welcome to ASPred</h1>
     <p class="lead mb-4">A powerful tool for antigen-specific antibody development</p>
     
     {% if not user.is_authenticated %}
@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Get Started</h5>
-                        <p class="card-text">Register now to submit and analyze your amino acid sequences.</p>
+                        <p class="card-text">Register now to submit and analyze your whole immune antibody repertoire sequences.</p>
                         <a href="{% url 'register' %}" class="btn btn-primary me-2">Register</a>
                         <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
                     </div>
