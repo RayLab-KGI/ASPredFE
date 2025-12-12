@@ -5,14 +5,16 @@
     <h1 class="display-4 mb-4">Antibody Specificity Predictor (ASPred)</h1>
     <p class="lead mb-4">
     ASPred is an AI framework that identifies antigen-specific B-cell receptor sequences directly from immune repertoires.</p>
-    <p class="lead mb-4">
-        It was created to help researchers rapidly detect which antibodies in a sample are likely to recognize a particular viral antigen, without requiring paired chains or structural modeling.</p>
-    <p class="lead mb-4">
-ASPred learns antigen-specific patterns from experimentally validated datasets and provides pretrained models for three major viral targets: SARS-CoV-2 RBD, HIV gp120, Influenza Hemagglutinin (HA)
-    </p>
-    <p class="lead mb-4">
-    These models allow users to screen bulk or single-cell BCR repertoires and estimate which sequences are enriched for antigen recognition. ASPred can be applied for antibody discovery, repertoire characterization, immune monitoring, and hypothesis generation in vaccine and infectious-disease research.</p>
-    <p class="lead mb-4">
+    <p class="mb-4">
+        It was created to help researchers rapidly detect which antibodies in a sample are likely to recognize a particular viral antigen, without requiring paired chains or structural modeling.<br>
+ASPred learns antigen-specific patterns from experimentally validated datasets and provides pretrained models for three major viral targets: 
+        <ul>
+            <li>SARS-CoV-2 RBD</li>
+<li>HIV gp120</li>
+<li>Influenza Hemagglutinin (HA)</li>
+        </ul>
+    <br>
+    These models allow users to screen bulk or single-cell BCR repertoires and estimate which sequences are enriched for antigen recognition. ASPred can be applied for antibody discovery, repertoire characterization, immune monitoring, and hypothesis generation in vaccine and infectious-disease research.<br>
 By making these three pretrained classifiers publicly available, ASPred offers a simple and scalable tool for exploring antigen specificity across diverse immune repertoires.    </p>
     
     {% if not user.is_authenticated %}
