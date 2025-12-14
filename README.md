@@ -1,4 +1,4 @@
-# ASPred, Antibody Specificity Predictor
+# ASPred, Antibody Specificity Predictor. Web Front-end only.
 
 ASPred (Antibody Specificity Predictor) is an innovative computational strategy developed to predict antigen-specific B-cell receptors (BCRs)
 
