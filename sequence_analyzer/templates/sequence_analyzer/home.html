@@ -1,48 +1,161 @@
 {% extends 'sequence_analyzer/base.html' %}
 
 {% block content %}
-<div class="text-center">
-    <h1 class="display-4 mb-4">Antibody Specificity Predictor (ASPred)</h1>
-    <p class="lead mb-4">
-    ASPred is an AI framework that identifies antigen-specific B-cell receptor sequences directly from immune repertoires.</p>
-    <p class="mb-4">
-        It was created to help researchers rapidly detect which antibodies in a sample are likely to recognize a particular viral antigen, without requiring paired chains or structural modeling.<br>
-ASPred learns antigen-specific patterns from experimentally validated datasets and provides pretrained models for three major viral targets: 
-        <ul>
-            <li>SARS-CoV-2 RBD</li>
-<li>HIV gp120</li>
-<li>Influenza Hemagglutinin (HA)</li>
-        </ul>
-    <br>
-    These models allow users to screen bulk or single-cell BCR repertoires and estimate which sequences are enriched for antigen recognition. ASPred can be applied for antibody discovery, repertoire characterization, immune monitoring, and hypothesis generation in vaccine and infectious-disease research.<br>
-By making these three pretrained classifiers publicly available, ASPred offers a simple and scalable tool for exploring antigen specificity across diverse immune repertoires.    </p>
-    
+<!-- Hero Section -->
+<div class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-4"
+            style="background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            Antibody Specificity Predictor (ASPred)
+        </h1>
+        <p class="lead fs-4 mb-5 text-muted mx-auto" style="max-width: 800px;">
+            ASPred is an AI framework that identifies antigen-specific B-cell receptor sequences directly from immune
+            repertoires.
+        </p>
+    </div>
+</div>
+
+<!-- Main Content Section -->
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="fs-5 text-muted mb-4 lh-lg">
+                                It was created to help researchers rapidly detect which antibodies in a sample are
+                                likely to recognize a particular viral antigen, without requiring paired chains or
+                                structural modeling.
+                            </p>
+
+                            <p class="fs-5 text-muted mb-4 lh-lg">
+                                ASPred learns antigen-specific patterns from experimentally validated datasets and
+                                provides pretrained models for three major viral targets:
+                            </p>
+
+                            <div class="row mb-4">
+                                <div class="col-md-4 mb-3">
+                                    <div class="d-flex align-items-center p-3 bg-light rounded-3">
+                                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3"
+                                            style="width: 40px; height: 40px;">
+                                            <i class="text-white fw-bold">1</i>
+                                        </div>
+                                        <span class="fw-semibold">SARS-CoV-2 RBD</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="d-flex align-items-center p-3 bg-light rounded-3">
+                                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3"
+                                            style="width: 40px; height: 40px;">
+                                            <i class="text-white fw-bold">2</i>
+                                        </div>
+                                        <span class="fw-semibold">HIV gp120</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="d-flex align-items-center p-3 bg-light rounded-3">
+                                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3"
+                                            style="width: 40px; height: 40px;">
+                                            <i class="text-white fw-bold">3</i>
+                                        </div>
+                                        <span class="fw-semibold">Influenza Hemagglutinin (HA)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="fs-5 text-muted mb-4 lh-lg">
+                                These models allow users to screen bulk or single-cell BCR repertoires and estimate
+                                which sequences are enriched for antigen recognition. ASPred can be applied for antibody
+                                discovery, repertoire characterization, immune monitoring, and hypothesis generation in
+                                vaccine and infectious-disease research.
+                            </p>
+
+                            <p class="fs-5 text-muted mb-5 lh-lg">
+                                By making these three pretrained classifiers publicly available, ASPred offers a simple
+                                and scalable tool for exploring antigen specificity across diverse immune repertoires.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Video Section -->
+<div class="video-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <h3 class="text-center mb-4 fw-semibold">Learn More About ASPred</h3>
+                <div class="text-center">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/u31qwQUeGuM?si=0NwtaXMgXjxvA9C_"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                        style="border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="container mt-5">
     {% if not user.is_authenticated %}
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Get Started</h5>
-                        <p class="card-text">Register now to submit and analyze your whole immune antibody repertoire sequences.</p>
-                        <a href="{% url 'register' %}" class="btn btn-primary me-2">Register</a>
-                        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-5 text-center">
+                    <div class="mb-4">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                            style="width: 80px; height: 80px;">
+                            <svg width="40" height="40" fill="currentColor" class="text-primary" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                <path
+                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.061L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h4 class="fw-bold mb-3">Get Started</h4>
+                    <p class="text-muted mb-4 fs-5">Register now to submit and analyze your whole immune antibody
+                        repertoire sequences.</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-4 me-md-2">Register</a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg px-4">Login</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     {% else %}
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Welcome back, {{ user.username }}!</h5>
-                        <p class="card-text">What would you like to do?</p>
-                        <a href="{% url 'submit_sequence' %}" class="btn btn-primary me-2">Submit Sequence</a>
-                        <a href="{% url 'view_submissions' %}" class="btn btn-outline-primary">View Submissions</a>
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-5 text-center">
+                    <div class="mb-4">
+                        <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                            style="width: 80px; height: 80px;">
+                            <svg width="40" height="40" fill="currentColor" class="text-success" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <h4 class="fw-bold mb-3">Welcome back, {{ user.username }}!</h4>
+                    <p class="text-muted mb-4 fs-5">What would you like to do?</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="{% url 'submit_sequence' %}" class="btn btn-primary btn-lg px-4 me-md-2">Submit
+                            Sequence</a>
+                        <a href="{% url 'view_submissions' %}" class="btn btn-outline-primary btn-lg px-4">View
+                            Submissions</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     {% endif %}
 </div>
 {% endblock %}
