@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,6 +52,14 @@
             font-weight: 700;
             font-size: 1.5rem;
             color: var(--primary-color) !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            width: auto;
         }
         
         .nav-link {
@@ -147,12 +156,23 @@
             padding: 2rem 0;
             margin-top: 2rem;
         }
+        
+        .hero-logo {
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s ease;
+        }
+        
+        .hero-logo:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">ASPred</a>
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'sequence_analyzer/images/aspred-logo.png' %}" alt="ASPred Logo">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>

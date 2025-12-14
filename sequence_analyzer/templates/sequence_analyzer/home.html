@@ -1,9 +1,13 @@
 {% extends 'sequence_analyzer/base.html' %}
+{% load static %}
 
 {% block content %}
 <!-- Hero Section -->
 <div class="hero-section text-center">
     <div class="container">
+        <div class="mb-4">
+            <img src="{% static 'sequence_analyzer/images/aspred-logo-main.png' %}" alt="ASPred Logo" class="hero-logo" style="height: 80px; width: auto;">
+        </div>
         <h1 class="display-3 fw-bold mb-4"
             style="background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
             Antibody Specificity Predictor (ASPred)
