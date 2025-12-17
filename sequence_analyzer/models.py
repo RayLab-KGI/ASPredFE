@@ -26,6 +26,11 @@ def save_user_profile(sender, instance, **kwargs):
 
 class SequenceSubmission(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(
+        max_length=100,
+        default='untitled_sequence',
+        help_text='Sequence title/identifier (from FASTA header)'
+    )
     sequence = models.CharField(
         max_length=130,
         validators=[
@@ -50,4 +55,4 @@ class SequenceSubmission(models.Model):
         ordering = ['-submit_date']
 
     def __str__(self):
-        return f"Sequence submission by {self.user.username} on {self.submit_date}"
+        return f"{self.title} by {self.user.username} on {self.submit_date}"

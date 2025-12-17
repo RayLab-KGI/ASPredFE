@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
 from django.urls import reverse
-from .forms import CustomUserCreationForm, SequenceSubmissionForm
+from .forms import CustomUserCreationForm, SequenceSubmissionForm, FastaSubmissionForm
 from .models import SequenceSubmission, UserProfile
 
 # Create your views here.
@@ -69,18 +69,44 @@ def submit_sequence(request):
     if not request.user.userprofile.email_verified:
         messages.error(request, "Please verify your email address before submitting sequences.")
         return redirect('dashboard')
+    
+    # Calculate today's submission count
+    from datetime import datetime
+    from django.utils.timezone import make_aware
+    today = make_aware(datetime.now())
+    today_submissions_count = SequenceSubmission.objects.filter(
+        user=request.user,
+        submit_date__year=today.year,
+        submit_date__month=today.month,
+        submit_date__day=today.day
+    ).count()
         
     if request.method == 'POST':
-        form = SequenceSubmissionForm(request.user, request.POST)
+        form = FastaSubmissionForm(request.user, request.POST)
         if form.is_valid():
-            submission = form.save(commit=False)
-            submission.user = request.user
-            submission.save()
-            messages.success(request, "Sequence submitted successfully!")
+            sequences = form.cleaned_data['fasta_sequences']
+            created_count = 0
+            
+            # Create SequenceSubmission objects for each parsed sequence
+            for title, sequence in sequences:
+                SequenceSubmission.objects.create(
+                    user=request.user,
+                    title=title,
+                    sequence=sequence
+                )
+                created_count += 1
+            
+            messages.success(request, f"{created_count} sequence(s) submitted successfully!")
             return redirect('view_submissions')
     else:
-        form = SequenceSubmissionForm(request.user)
-    return render(request, 'sequence_analyzer/submit_sequence.html', {'form': form})
+        form = FastaSubmissionForm(request.user)
+    
+    context = {
+        'form': form,
+        'today_submissions_count': today_submissions_count,
+        'remaining_submissions': 10 - today_submissions_count
+    }
+    return render(request, 'sequence_analyzer/submit_sequence.html', context)
 
 @login_required
 def view_submissions(request):

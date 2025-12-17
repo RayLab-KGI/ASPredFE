@@ -9,6 +9,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th>Title</th>
                             <th>Sequence</th>
                             <th>Status</th>
                             <th>Result</th>
@@ -19,7 +20,8 @@
                     <tbody>
                         {% for submission in submissions %}
                             <tr>
-                                <td>{{ submission.sequence }}</td>
+                                <td><strong>{{ submission.title }}</strong></td>
+                                <td><code style="font-size: 0.8em;">{{ submission.sequence|truncatechars:30 }}</code></td>
                                 <td>
                                     {% if submission.status == 'pending' %}
                                         <span class="badge bg-warning">Pending</span>
