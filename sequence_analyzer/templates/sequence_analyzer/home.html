@@ -6,10 +6,10 @@
 <div class="hero-section text-center">
     <div class="container">
         <div class="mb-4">
-            <img src="{% static 'sequence_analyzer/images/aspred-logo-main.png' %}" alt="ASPred Logo" class="hero-logo" style="height: 80px; width: auto;">
+            <img src="{% static 'sequence_analyzer/images/aspred-logo-main.png' %}" alt="ASPred Logo" class="hero-logo" style="height: 200px; width: auto;">
         </div>
         <h1 class="display-3 fw-bold mb-4"
-            style="background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            style="background: linear-gradient(135deg, #0a253e 0%, #0a253e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
             Antibody Specificity Predictor (ASPred)
         </h1>
         <p class="lead fs-4 mb-5 text-muted mx-auto" style="max-width: 800px;">
@@ -41,29 +41,29 @@
                             <div class="row mb-4">
                                 <div class="col-md-4 mb-3">
                                     <div class="d-flex align-items-center p-3 bg-light rounded-3">
-                                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3"
-                                            style="width: 40px; height: 40px;">
+                                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                                            style="width: 40px; height: 40px; background-color: #00a0c1;">
                                             <i class="text-white fw-bold">1</i>
                                         </div>
                                         <span class="fw-semibold">SARS-CoV-2 RBD</span>
                                     </div>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <div class="d-flex align-items-center p-3 bg-light rounded-3">
-                                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3"
-                                            style="width: 40px; height: 40px;">
+                                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                                            style="width: 40px; height: 40px; background-color: #00a0c1;">
                                             <i class="text-white fw-bold">2</i>
                                         </div>
                                         <span class="fw-semibold">HIV gp120</span>
                                     </div>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-5 mb-3">
                                     <div class="d-flex align-items-center p-3 bg-light rounded-3">
-                                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3"
-                                            style="width: 40px; height: 40px;">
+                                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                                            style="width: 40px; height: 40px; background-color: #00a0c1;">
                                             <i class="text-white fw-bold">3</i>
                                         </div>
-                                        <span class="fw-semibold">Influenza Hemagglutinin (HA)</span>
+                                        <span class="fw-semibold">Influenza Hemagglutinin</span>
                                     </div>
                                 </div>
                             </div>
@@ -94,9 +94,9 @@
             <div class="col-12">
                 <h3 class="text-center mb-4 fw-semibold">Learn More About ASPred</h3>
                 <div class="text-center">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/u31qwQUeGuM?si=0NwtaXMgXjxvA9C_"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=W6-k2iOAfpeUMu-0" 
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
                         style="border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);">
                     </iframe>
@@ -106,6 +106,7 @@
     </div>
 </div>
 
+
 <!-- CTA Section -->
 <div class="container mt-5">
     {% if not user.is_authenticated %}
@@ -114,9 +115,9 @@
             <div class="card border-0 shadow-lg">
                 <div class="card-body p-5 text-center">
                     <div class="mb-4">
-                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
-                            style="width: 80px; height: 80px;">
-                            <svg width="40" height="40" fill="currentColor" class="text-primary" viewBox="0 0 16 16">
+                        <div class="bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                            style="width: 80px; height: 80px; background-color: #00a0c1;">
+                            <svg width="40" height="40" fill="currentColor" class="text-white" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                                 <path
                                     d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.061L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
@@ -140,9 +141,9 @@
             <div class="card border-0 shadow-lg">
                 <div class="card-body p-5 text-center">
                     <div class="mb-4">
-                        <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
-                            style="width: 80px; height: 80px;">
-                            <svg width="40" height="40" fill="currentColor" class="text-success" viewBox="0 0 16 16">
+                        <div class="bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                            style="width: 80px; height: 80px; background-color: #00a0c1;">
+                            <svg width="40" height="40" fill="currentColor" class="text-white" viewBox="0 0 16 16">
                                 <path
                                     d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
                             </svg>
