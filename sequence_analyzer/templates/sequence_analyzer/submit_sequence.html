@@ -18,16 +18,6 @@
                     </ul>
                 </div>
                 
-                <div class="alert alert-light border">
-                    <h6 class="alert-heading">FASTA Format Example:</h6>
-                    <pre class="mb-0" style="font-size: 0.9em;"><code>&gt;sequence_1
-ACDEFGHIKLMNPQRSTVWY
-&gt;sequence_2
-CDEFGHIKLMNPQRSTVWY
-&gt;my_antibody_seq
-ACDEFGHIKLMNPQRSTVWYACDEFG</code></pre>
-                </div>
-
                 <form method="post">
                     {% csrf_token %}
                     {{ form|crispy }}
@@ -40,7 +30,7 @@ ACDEFGHIKLMNPQRSTVWYACDEFG</code></pre>
                 <div class="mt-4">
                     <h6>Daily Submission Status:</h6>
                     <div class="progress mb-2">
-                        <div class="progress-bar" role="progressbar" style="width: {% widthratio today_submissions_count 10 100 %}%" 
+                        <div class="progress-bar" role="progressbar" style="width: {% widthratio today_submissions_count 10 100 %}%; background-color: #ed3524;" 
                              aria-valuenow="{{ today_submissions_count }}" aria-valuemin="0" aria-valuemax="10">
                             {{ today_submissions_count }}/10
                         </div>

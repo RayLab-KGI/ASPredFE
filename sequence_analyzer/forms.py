@@ -29,7 +29,7 @@ class FastaSubmissionForm(forms.Form):
         widget=forms.Textarea(attrs={
             'rows': 10,
             'cols': 80,
-            'placeholder': 'Enter sequences in FASTA format:\n>seq1\nACDEFGHIKLMNPQRSTVWY\n>seq2\nCDEFGHIKLMNPQRSTVWY\n...'
+            'placeholder': '>seq1\nACDEFGHIKLMNPQRSTVWY\n>seq2\nCDEFGHIKLMNPQRSTVWY\n...'
         }),
         label='FASTA Sequences',
         help_text='Enter up to 10 sequences in FASTA format. Each sequence must be ≤130 amino acids.'
