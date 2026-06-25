@@ -29,7 +29,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # Change env.example to .env
 # Configure database in .env to match aspredwrapper database_config
 # Configure database in settings.py in labsite folder to match aspredwrapper database_config
-# Change paths as necessary for the models
+# Change paths as necessary for the models in aspredwrapper
 ```
 
 3. Apply migrations and add models:
