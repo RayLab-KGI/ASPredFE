@@ -19,22 +19,22 @@ class Command(BaseCommand):
             {
                 "name": "default",
                 "description": "Current ASPRED model",
-                "model_path": "aspredINF/adapter_model.safetensors"
+                "model_path": "default"
             },
             {
                 "name": "modela",
                 "description": "ASPRED Variant A",
-                "model_path": "aspredINF/adapter_model.safetensors"
+                "model_path": "default"
             },
             {
                 "name": "modelb",
                 "description": "ASPRED Variant B",
-                "model_path": "aspredINF/adapter_model.safetensors"
+                "model_path": "default"
             },
             {
                 "name": "modelc",
                 "description": "ASPRED Variant C",
-                "model_path": "aspredINF/adapter_model.safetensors"
+                "model_path": "default"
             },
         ]
 
@@ -45,7 +45,7 @@ class Command(BaseCommand):
             # - If it finds it, it fetches it.
             # - If it doesn't, it creates a new entry using the fields in the 'defaults' dictionary.
             # It returns a tuple: (the database object, a boolean 'created' which is True if it's new, False if it already existed).
-            obj, created = PredictionModel.objects.get_or_create(
+            obj, created = PredictionModel.objects.update_or_create(
                 name=model_data["name"],
                 defaults={
                     "description": model_data["description"],
@@ -59,13 +59,14 @@ class Command(BaseCommand):
                 # self.stdout.write ensures the output streams correctly to the terminal console.
                 # self.style.SUCCESS color-codes the terminal text green.
                 self.stdout.write(
-                    self.style.SUCCESS(f'✓ Created: {obj.name}')
+                    self.style.SUCCESS(f' Created: {obj.name}')
                 )
             else:
                 # self.style.WARNING color-codes the terminal text olive/yellow.
                 self.stdout.write(
-                    self.style.WARNING(f'- Already exists: {obj.name}')
+                    self.style.SUCCESS(f' Updated: {obj.name}')
                 )
+                
 
         # Final success message printed to the console once the loop finishes completely.
         

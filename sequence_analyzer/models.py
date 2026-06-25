@@ -29,7 +29,7 @@ class PredictionModel(models.Model):
     name = models.CharField(max_length=100, primary_key=True)
     description = models.TextField(blank=True, null=True)
     model_path = models.CharField(max_length=255)  
-    # Path to model file (e.g., 'adapter_model.safetensors')
+    # Path to model folder
 
     # good for production, knowing when a model was first added. when it was updated, if it's active
     is_active = models.BooleanField(default=True)
