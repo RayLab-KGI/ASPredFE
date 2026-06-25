@@ -8,7 +8,7 @@ from django.utils.html import strip_tags
 from django.conf import settings
 from django.urls import reverse
 from .forms import CustomUserCreationForm, SequenceSubmissionForm, FastaSubmissionForm
-from .models import SequenceSubmission, UserProfile
+from .models import SequenceSubmission, UserProfile, PredictionModel
 
 # Create your views here.
 
@@ -88,9 +88,12 @@ def submit_sequence(request):
             created_count = 0
             
             # Create SequenceSubmission objects for each parsed sequence
-            for title, sequence in sequences:
+            for title, model_name, sequence in sequences:
+                prediction_model_row = PredictionModel.objects.get(name=model_name.lower())
                 SequenceSubmission.objects.create(
                     user=request.user,
+                    prediction_model_id = model_name.lower(),
+                    #id to reference primary key
                     title=title,
                     sequence=sequence
                 )
@@ -101,10 +104,13 @@ def submit_sequence(request):
     else:
         form = FastaSubmissionForm(request.user)
     
+    model_names = PredictionModel.objects.values_list('name', flat=True)
+
     context = {
         'form': form,
         'today_submissions_count': today_submissions_count,
-        'remaining_submissions': 10 - today_submissions_count
+        'remaining_submissions': 10 - today_submissions_count,
+        'model_names': model_names
     }
     return render(request, 'sequence_analyzer/submit_sequence.html', context)
 

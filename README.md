@@ -21,17 +21,32 @@ conda activate aspred
 2. Install dependencies:
 ```bash
 pip install -r requirements.txt
+conda install -c conda-forge mysql-connector-python
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# mySQL server part
+# Install mysql (from website for windows)
+# Change env.example to .env
+# Configure database in .env to match aspredwrapper database_config
+# Configure database in settings.py in labsite folder to match aspredwrapper database_config
 ```
 
-3. Apply migrations:
+3. Apply migrations and add models:
 ```bash
 python manage.py migrate
+python manage.py add_prediction_models
 ```
 
 4. Run development server:
 ```bash
 python manage.py runserver
 ```
+
+5. Run wrapper:
+```bash
+To run wrapper, uv run aspredwrapper.py
+```
+
 
 ## Production Deployment
 

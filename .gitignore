@@ -1,3 +1,5 @@
+adapter_config.json
+adapter_model.safetensors
 
 .DS_Store
 .env.prod

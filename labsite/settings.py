@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'labsite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'aspred',
+        'USER': 'root',
+        'PASSWORD': 'toys',  # <- Put your real password here!
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 

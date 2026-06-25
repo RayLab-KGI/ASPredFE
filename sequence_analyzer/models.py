@@ -24,8 +24,33 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
 
+class PredictionModel(models.Model): 
+    # under django's model, view, template structure
+    name = models.CharField(max_length=100, primary_key=True)
+    description = models.TextField(blank=True, null=True)
+    model_path = models.CharField(max_length=255)  
+    # Path to model file (e.g., 'adapter_model.safetensors')
+
+    # good for production, knowing when a model was first added. when it was updated, if it's active
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    # timestamp set only once- when record is created 
+
+    updated_at = models.DateTimeField(auto_now=True)
+    # timestamp set every time it is saved
+
+    # optional
+    class Meta:
+        ordering = ['name']
+
+    # optional, When Django displays a SequenceSubmission (admin interface, error messages, debugging), it shows this string instead of garbage:
+    def __str__(self):
+        return self.name
+
+
 class SequenceSubmission(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    prediction_model = models.ForeignKey(PredictionModel, on_delete=models.CASCADE, null=True, blank=True) #stops asking me for a default value
     title = models.CharField(
         max_length=100,
         default='untitled_sequence',
@@ -55,4 +80,4 @@ class SequenceSubmission(models.Model):
         ordering = ['-submit_date']
 
     def __str__(self):
-        return f"{self.title} by {self.user.username} on {self.submit_date}"
+        return f"{self.title} by {self.user.username} using {self.prediction_model.name} on {self.submit_date}"

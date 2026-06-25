@@ -15,6 +15,12 @@
                         <li>Maximum sequence length is 130 amino acids</li>
                         <li>You can submit up to <strong>10 sequences per day</strong></li>
                         <li>Each sequence should have a title starting with <code>&gt;</code></li>
+                        <li>Model names for reference:</li>
+                        <ul>
+                        {% for model_name in model_names %}
+                            <li>{{ model_name }}</li>
+                        {% endfor %}
+                    </ul>
                     </ul>
                 </div>
                 
