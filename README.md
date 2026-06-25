@@ -18,7 +18,7 @@ conda create -n aspred python=3.11
 conda activate aspred
 ```
 
-2. Install dependencies:
+2. Install dependencies and Configuring database and paths:
 ```bash
 pip install -r requirements.txt
 conda install -c conda-forge mysql-connector-python
@@ -29,6 +29,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # Change env.example to .env
 # Configure database in .env to match aspredwrapper database_config
 # Configure database in settings.py in labsite folder to match aspredwrapper database_config
+# Change paths as necessary for the models
 ```
 
 3. Apply migrations and add models:
