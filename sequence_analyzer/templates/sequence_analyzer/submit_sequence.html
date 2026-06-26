@@ -15,22 +15,31 @@
                         <li>Maximum sequence length is 130 amino acids</li>
                         <li>You can submit up to <strong>10 sequences per day</strong></li>
                         <li>Each sequence should have a title starting with <code>&gt;</code></li>
-                        <li>Model names for reference:</li>
-                        <ul>
-                        {% for model_name in model_names %}
-                            <li>{{ model_name }}</li>
-                        {% endfor %}
-                    </ul>
                     </ul>
                 </div>
-                
-                <form method="post">
+
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form|crispy }}
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                    
+                    <!-- SECTION 1: The Global Form -->
+                    <div>
+                        <h3>Model</h3>
+                        {{ model_form|crispy }}
+                    </div>
+
+                    <hr>
+
+                    <!-- SECTION 2: The Individualized Form -->
+                    <div>
+                        <h3>Sequences</h3>
+                        {{ sequence_form|crispy }}
+                    </div>
+                    
+                    <!-- This single button submits ALL data from both forms at once -->
+                     <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
                         <button type="submit" class="btn btn-primary btn-lg px-4">Submit Sequences</button>
                         <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary btn-lg px-4">Cancel</a>
-                    </div>
+                    </div>  
                 </form>
                 
                 <div class="mt-4">

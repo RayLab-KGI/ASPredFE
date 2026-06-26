@@ -24,26 +24,39 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
 
+class ModelDropdownForm(forms.Form):
+    prediction_model = forms.ModelChoiceField(
+        queryset=PredictionModel.objects.filter(is_active=True).order_by('name'),
+        empty_label='Select a prediction model',
+        label='Prediction Model',
+        required=True,
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None) # Safely pop it out so super() doesn't break
+        super().__init__(*args, **kwargs)
+        # important because of the multiple forms
+
 class FastaSubmissionForm(forms.Form):
     fasta_sequences = forms.CharField(
         widget=forms.Textarea(attrs={
             'rows': 10,
             'cols': 80,
-            'placeholder': '>seq1 modelname1\nACDEFGHIKLMNPQRSTVWY\n>seq2 modelname2\nCDEFGHIKLMNPQRSTVWY\n...'
+            'placeholder': '>seq1\nACDEFGHIKLMNPQRSTVWY\n>seq2\nCDEFGHIKLMNPQRSTVWY\n...'
         }),
         label='FASTA Sequences',
         help_text='Enter up to 10 sequences in FASTA format. Each sequence must be ≤130 amino acids.'
     )
 
-    def __init__(self, user=None, *args, **kwargs):
-        self.user = user
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None) # Safely pop it out so super() doesn't break
         super().__init__(*args, **kwargs)
+        # important because of the multiple forms
 
     def parse_fasta(self, fasta_text):
         """Parse FASTA format text and return list of (title, sequence) tuples"""
         sequences = []
         current_title = None
-        current_model_name = None
         current_sequence = ""
         
         for line in fasta_text.strip().split('\n'):
@@ -54,11 +67,10 @@ class FastaSubmissionForm(forms.Form):
             if line.startswith('>'):
                 # Save previous sequence if exists
                 if current_title and current_sequence:
-                    sequences.append((current_title, current_model_name, current_sequence.upper()))
+                    sequences.append((current_title, current_sequence.upper()))
                 
                 # Start new sequence
-                current_title = line[1:].split()[0]  # Remove '>' and whitespace
-                current_model_name = line[1:].split()[1]
+                current_title = line[1:].strip()  # Remove '>' and whitespace
                 if not current_title:
                     current_title = f"seq_{len(sequences) + 1}"
                 current_sequence = ""
@@ -67,8 +79,8 @@ class FastaSubmissionForm(forms.Form):
                 current_sequence += line.replace(' ', '').replace('\t', '')
         
         # Don't forget the last sequence
-        if current_title and current_model_name and current_sequence:
-            sequences.append((current_title, current_model_name, current_sequence.upper()))
+        if current_title and current_sequence:
+            sequences.append((current_title, current_sequence.upper()))
             
         return sequences
 
@@ -92,16 +104,12 @@ class FastaSubmissionForm(forms.Form):
         
         # Validate each sequence
         amino_acid_pattern = r'^[ACDEFGHIKLMNPQRSTVWY]+$'
-        for i, (title, model_name, sequence) in enumerate(sequences, 1):
+        for i, (title, sequence) in enumerate(sequences, 1):
             if len(sequence) > 130:
                 raise ValidationError(f"Sequence {i} ({title}) is too long. Maximum 130 amino acids allowed.")
             
             if not sequence:
                 raise ValidationError(f"Sequence {i} ({title}) is empty.")
-            
-            if not PredictionModel.objects.filter(name__iexact=model_name.strip()).exists():
-            #name_iexact does a case insensitive match:
-                raise ValidationError(f"Model_name {i} ({model_name}) does not exist.")
             
             import re
             if not re.match(amino_acid_pattern, sequence):

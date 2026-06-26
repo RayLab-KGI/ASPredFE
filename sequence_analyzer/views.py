@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
 from django.urls import reverse
-from .forms import CustomUserCreationForm, SequenceSubmissionForm, FastaSubmissionForm
+from .forms import CustomUserCreationForm, SequenceSubmissionForm, FastaSubmissionForm, ModelDropdownForm
 from .models import SequenceSubmission, UserProfile, PredictionModel
 
 # Create your views here.
@@ -82,35 +82,35 @@ def submit_sequence(request):
     ).count()
         
     if request.method == 'POST':
-        form = FastaSubmissionForm(request.user, request.POST)
-        if form.is_valid():
-            sequences = form.cleaned_data['fasta_sequences']
+        # 1. Bind POST data to both forms using prefixes
+        model_form = ModelDropdownForm(request.POST, prefix='model', user=request.user)
+        sequence_form = FastaSubmissionForm(request.POST, prefix='sequence', user=request.user)
+                
+        if model_form.is_valid() and sequence_form.is_valid():
+            selected_model = model_form.cleaned_data['prediction_model']
+            sequences = sequence_form.cleaned_data['fasta_sequences']
             created_count = 0
-            
-            # Create SequenceSubmission objects for each parsed sequence
-            for title, model_name, sequence in sequences:
-                prediction_model_row = PredictionModel.objects.get(name=model_name.lower())
+
+            for title, sequence in sequences:
                 SequenceSubmission.objects.create(
                     user=request.user,
-                    prediction_model_id = model_name.lower(),
-                    #id to reference primary key
+                    prediction_model=selected_model,
                     title=title,
                     sequence=sequence
                 )
                 created_count += 1
-            
+
             messages.success(request, f"{created_count} sequence(s) submitted successfully!")
             return redirect('view_submissions')
     else:
-        form = FastaSubmissionForm(request.user)
+        model_form = ModelDropdownForm(prefix='model', user=request.user)
+        sequence_form = FastaSubmissionForm(prefix='sequence', user=request.user)
     
-    model_names = PredictionModel.objects.values_list('name', flat=True)
-
     context = {
-        'form': form,
+        'model_form': model_form,
+        'sequence_form': sequence_form,
         'today_submissions_count': today_submissions_count,
         'remaining_submissions': 10 - today_submissions_count,
-        'model_names': model_names
     }
     return render(request, 'sequence_analyzer/submit_sequence.html', context)
 
