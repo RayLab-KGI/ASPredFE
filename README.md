@@ -28,19 +28,20 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # Install mysql (from website for windows)
 # Change env.example to .env
 # Configure database in .env to match aspredwrapper database_config
-# Configure database in settings.py in labsite folder to match aspredwrapper database_config
+# Configure database in new file settings_local.py to match aspredwrapper database_config
 # Change paths as necessary for the models in aspredwrapper
 ```
 
 3. Apply migrations and add models:
 ```bash
-python manage.py migrate
-python manage.py add_prediction_models
+python manage.py makemigrations --settings=labsite.settings_local
+python manage.py migrate --settings=labsite.settings_local
+python manage.py add_prediction_models --settings=labsite.settings_local
 ```
 
 4. Run development server:
 ```bash
-python manage.py runserver
+python manage.py runserver --settings=labsite.settings_local
 ```
 
 5. Run wrapper:
