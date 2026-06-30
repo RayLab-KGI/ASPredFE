@@ -1,3 +1,5 @@
+adapter_config.json
+adapter_model.safetensors
 
 .DS_Store
 .env.prod
@@ -140,6 +142,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+env
+local.env
 
 # Spyder project settings
 .spyderproject

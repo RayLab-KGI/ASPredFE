@@ -18,20 +18,40 @@ conda create -n aspred python=3.11
 conda activate aspred
 ```
 
-2. Install dependencies:
+2. Install dependencies and Configuring database and paths:
 ```bash
 pip install -r requirements.txt
+conda install -c conda-forge mysql-connector-python
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# mySQL server part
+# Install mysql (from website for windows)
+# Change env.example to .env
+# Configure database in .env to match aspredwrapper.py's database_config
+# Configure database in new file settings_local.py to match aspredwrapper.py's database_config
+# Do not change aspredwrapper.py's aspredwrapper database_config
+# Make sure to load environment variables from the correct environment file in aspredwrapper.py
+# i.e. load_dotenv(dotenv_path="../local.env") for local development
+# Change paths as necessary for the models in aspredwrapper.py
 ```
 
-3. Apply migrations:
+3. Apply migrations and add models:
 ```bash
-python manage.py migrate
+python manage.py makemigrations --settings=labsite.settings_local
+python manage.py migrate --settings=labsite.settings_local
+python manage.py add_prediction_models --settings=labsite.settings_local
 ```
 
 4. Run development server:
 ```bash
-python manage.py runserver
+python manage.py runserver --settings=labsite.settings_local
 ```
+
+5. Run wrapper:
+```bash
+To run wrapper, uv run aspredwrapper.py
+```
+
 
 ## Production Deployment
 

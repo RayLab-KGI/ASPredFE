@@ -12,6 +12,7 @@
                             <th>Title</th>
                             <th>Sequence</th>
                             <th>Status</th>
+                            <th>Model</th>
                             <th>Result</th>
                             <th>Submitted</th>
                             <th>Result Date</th>
@@ -28,6 +29,9 @@
                                     {% else %}
                                         <span class="badge bg-success">Done</span>
                                     {% endif %}
+                                </td>
+                                <td>
+                                    {{ submission.prediction_model }}
                                 </td>
                                 <td>
                                     {% if submission.status == 'pending' %}

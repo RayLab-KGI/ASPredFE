@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import SequenceSubmission
+from .models import SequenceSubmission, PredictionModel
 from django.core.exceptions import ValidationError
 from datetime import datetime, timezone
 from django.utils.timezone import make_aware
@@ -24,6 +24,19 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
 
+class ModelDropdownForm(forms.Form):
+    prediction_model = forms.ModelChoiceField(
+        queryset=PredictionModel.objects.filter(is_active=True).order_by('name'),
+        empty_label='Select a prediction model',
+        label='Prediction Model',
+        required=True,
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None) # Safely pop it out so super() doesn't break
+        super().__init__(*args, **kwargs)
+        # important because of the multiple forms
+
 class FastaSubmissionForm(forms.Form):
     fasta_sequences = forms.CharField(
         widget=forms.Textarea(attrs={
@@ -35,9 +48,10 @@ class FastaSubmissionForm(forms.Form):
         help_text='Enter up to 10 sequences in FASTA format. Each sequence must be ≤130 amino acids.'
     )
 
-    def __init__(self, user=None, *args, **kwargs):
-        self.user = user
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None) # Safely pop it out so super() doesn't break
         super().__init__(*args, **kwargs)
+        # important because of the multiple forms
 
     def parse_fasta(self, fasta_text):
         """Parse FASTA format text and return list of (title, sequence) tuples"""
@@ -133,6 +147,7 @@ class SequenceSubmissionForm(forms.ModelForm):
     class Meta:
         model = SequenceSubmission
         fields = ['title', 'sequence']
+
 
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
