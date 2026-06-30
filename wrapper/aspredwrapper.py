@@ -48,7 +48,10 @@ INFPATH, MODELPATH = parse_arguments()
 curdir = os.getcwd()
 predfile = 'forASPRED.csv'
 predictedfile = predfile.split('.')[0] + '__thresh0.5_predictions.csv' 
-load_dotenv('.env.prod')
+
+#load_dotenv('.env.prod')
+load_dotenv(dotenv_path="../local.env") 
+
 
 db_config = {
         'user': os.getenv('DB_USER'),

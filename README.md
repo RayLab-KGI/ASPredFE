@@ -27,9 +27,12 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # mySQL server part
 # Install mysql (from website for windows)
 # Change env.example to .env
-# Configure database in .env to match aspredwrapper database_config
-# Configure database in new file settings_local.py to match aspredwrapper database_config
-# Change paths as necessary for the models in aspredwrapper
+# Configure database in .env to match aspredwrapper.py's database_config
+# Configure database in new file settings_local.py to match aspredwrapper.py's database_config
+# Do not change aspredwrapper.py's aspredwrapper database_config
+# Make sure to load environment variables from the correct environment file in aspredwrapper.py
+# i.e. load_dotenv(dotenv_path="../local.env") for local development
+# Change paths as necessary for the models in aspredwrapper.py
 ```
 
 3. Apply migrations and add models:
