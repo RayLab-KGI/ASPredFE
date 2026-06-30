@@ -49,13 +49,14 @@ curdir = os.getcwd()
 predfile = 'forASPRED.csv'
 predictedfile = predfile.split('.')[0] + '__thresh0.5_predictions.csv' 
 load_dotenv('.env.prod')
+
 db_config = {
-        'user': 'root',
-        'password': "toys",
-        'host': '127.0.0.1',
-        'database': 'aspred',
-        'port': 3306
-    }
+        'user': os.getenv('DB_USER'),
+        'password': os.getenv('DB_PASSWORD'),
+        'host': os.getenv('DB_HOST'),
+        'database': os.getenv('DB_NAME'),
+        'port': os.getenv('DB_PORT')
+}
 
 
 def generate_aspred_input(config):
