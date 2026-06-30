@@ -286,14 +286,3 @@ if __name__ == "__main__":
             print(f"CRITICAL ERROR: Row mismatch for {model_filename}!")
             print(f"Expected {len(id_lst)} results, but got {len(preds_lst)}.")
 
-
-"""
-if __name__ == "__main__":
-    id_lst = generate_aspred_input(db_config)
-    print("ID list:", id_lst)
-    run_prediction()
-    #run_prediction_test()
-    preds_lst = read_output()
-    print(preds_lst)
-    update_database(id_lst, preds_lst, db_config)
-"""
